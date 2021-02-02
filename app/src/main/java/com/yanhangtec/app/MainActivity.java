@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements OnFaceCallbackLis
         setContentView(R.layout.activity_main);
 
         faceView = findViewById(R.id.view_face);
-        faceView.initConfig(this, FaceView.TYPE_REGISTER, UsbCameraHandler.TYPE_JPEG,
+        faceView.initConfig(this, FaceView.TYPE_IDENTIFY, UsbCameraHandler.TYPE_JPEG,
                 22656, 3016, "11111");
         faceView.setListener(this);
 

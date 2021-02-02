@@ -6,11 +6,11 @@ import android.util.Log;
 import androidx.annotation.IntRange;
 
 import com.baidu.aip.FaceDetector;
+import com.baidu.aip.FaceInfoModel;
 import com.baidu.aip.ImageFrame;
 import com.baidu.aip.face.ArgbPool;
 import com.baidu.aip.face.FaceDetectManager;
 import com.baidu.aip.face.FaceFilter;
-import com.baidu.idl.facesdk.FaceInfo;
 import com.serenegiant.usb.UVCCamera;
 import com.yanhangtec.faceonlinelibrary.FaceConstance;
 import com.yanhangtec.faceonlinelibrary.R;
@@ -155,22 +155,21 @@ public class FaceHandler implements FaceDetectManager.OnFaceDetectListener, Face
      * 在检测面部
      *
      * @param status     状态
-     * @param infos      数据
+     * @param info      数据
      * @param imageFrame 图片框
      */
     @Override
-    public void onDetectFace(int status, FaceInfo[] infos, ImageFrame imageFrame) {
+    public void onDetectFace(int status, FaceInfoModel info, ImageFrame imageFrame) {
         isReading.set(false);
 
         String desc = "";
         if (status == 0) {
             // 识别到标准人脸
-            if (infos == null || infos[0] == null) {
+            if (info == null) {
                 notifyDesc(FaceConstance.DESC.VERIFYING_FACE);
                 return;
             }
 
-            FaceInfo info = infos[0];
             drawFaceFrame(info);
 
             if (info.headPose[0] > ANGLE) {
@@ -243,13 +242,13 @@ public class FaceHandler implements FaceDetectManager.OnFaceDetectListener, Face
                 break;
         }
 
-        if (infos == null) {
+        if (info == null) {
             drawFaceFrame(null);
         }
         notifyDesc(desc);
     }
 
-    private void drawFaceFrame(FaceInfo faceInfo) {
+    private void drawFaceFrame(FaceInfoModel faceInfo) {
         if (listener != null) {
             if (faceInfo == null) {
                 listener.onFaceFrame(null);

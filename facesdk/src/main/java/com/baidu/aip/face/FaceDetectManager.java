@@ -7,6 +7,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.HandlerThread;
 
+import com.baidu.aip.FaceInfoModel;
 import com.baidu.aip.FaceSDKManager;
 import com.baidu.aip.ImageFrame;
 import com.baidu.aip.face.stat.Ast;
@@ -27,7 +28,7 @@ public class FaceDetectManager {
      * 该回调用于回调，人脸检测结果。当没有人脸时，infos 为null,status为 FaceDetector.DETECT_CODE_NO_FACE_DETECTED
      */
     public interface OnFaceDetectListener {
-        void onDetectFace(int status, FaceInfo[] infos, ImageFrame imageFrame);
+        void onDetectFace(int status, FaceInfoModel infos, ImageFrame imageFrame);
     }
 
     public FaceDetectManager(Context context) {
@@ -238,11 +239,19 @@ public class FaceDetectManager {
 //         value = FaceSDKManager.getInstance().detect(frame.getArgb(), frame.getWidth(), frame.getHeight());
         FaceInfo[] faces = FaceSDKManager.getInstance().getFaceTracker(mContext).get_TrackedFaceInfo();
 
+        FaceInfoModel model = null;
+        if(faces != null && faces.length>0) {
+            FaceInfo info = faces[0];
+            model = new FaceInfoModel(info.mWidth,info.mAngle,info.mCenter_y,info.mCenter_x,info.mConf,info.face_id,info.is_live,info.headPose,info.is_live);
+        }else{
+            model = null;
+        }
+
         if (value == 0) {
             faceFilter.filter(faces, frame);
         }
         if (listener != null) {
-            listener.onDetectFace(value, faces, frame);
+            listener.onDetectFace(value, model, frame);
         }
         Ast.getInstance().faceHit("facelogin", 60 * 1000, faces);
 

@@ -2,9 +2,7 @@ package com.yanhangtec.faceonlinelibrary.client;
 
 import android.content.Context;
 
-import com.baidu.aip.FaceEnvironment;
 import com.baidu.aip.FaceSDKManager;
-import com.baidu.idl.facesdk.FaceTracker;
 import com.yanhangtec.faceonlinelibrary.FaceConstance;
 import com.yanhangtec.faceonlinelibrary.FaceDispatcher;
 import com.yanhangtec.faceonlinelibrary.R;
@@ -13,7 +11,6 @@ import com.yanhangtec.faceonlinelibrary.listener.OnResultListener;
 import com.yanhangtec.faceonlinelibrary.model.baidu.AccessTokenModel;
 import com.yanhangtec.faceonlinelibrary.model.FaceError;
 import com.yanhangtec.faceonlinelibrary.model.baidu.UserModel;
-import com.yanhangtec.faceonlinelibrary.utils.FormatUtils;
 
 import java.io.File;
 import java.util.List;
@@ -149,46 +146,16 @@ public class FaceClient {
      * 设置人脸配置
      */
     private void setFaceConfig(Context context) {
-        FaceTracker tracker = FaceSDKManager.getInstance().getFaceTracker(context);  //.getFaceConfig();
-        // SDK初始化已经设置完默认参数（推荐参数），您也根据实际需求进行数值调整
-
-        // 模糊度范围 (0-1) 推荐小于0.7
-        float blurness = FormatUtils.stringToFloat(FormatUtils.getStringRes(context, R.string.value_blurness),
-                FaceEnvironment.VALUE_BLURNESS);
-        tracker.set_blur_thr(blurness);
-        // 光照范围 (0-1) 推荐大于40
-        float brightness = FormatUtils.stringToFloat(FormatUtils.getStringRes(context, R.string.value_brightness),
-                FaceEnvironment.VALUE_BRIGHTNESS);
-        tracker.set_illum_thr(brightness);
-        // 裁剪人脸大小
-        tracker.set_cropFaceSize(FormatUtils.getIntegerRes(context, R.integer.value_crop_face_size));
-        // 人脸yaw,pitch,row 角度，范围（-45，45），推荐-15-15
-        tracker.set_eulur_angle_thr(FormatUtils.getIntegerRes(context, R.integer.value_head_pitch),
-                FormatUtils.getIntegerRes(context, R.integer.value_head_roll),
-                FormatUtils.getIntegerRes(context, R.integer.value_head_yaw));
-
-        // 最小检测人脸（在图片人脸能够被检测到最小值）80-200， 越小越耗性能，推荐120-200
-        tracker.set_min_face_size(FormatUtils.getIntegerRes(context, R.integer.value_min_face_size));
-        //
-
-        tracker.set_notFace_thr(FormatUtils.stringToFloat(FormatUtils.getStringRes(context, R.string.value_not_face_threshold),
-                FaceEnvironment.VALUE_NOT_FACE_THRESHOLD));
-        // 人脸遮挡范围 （0-1） 推荐小于0.5
-        tracker.set_occlu_thr(FormatUtils.stringToFloat(FormatUtils.getStringRes(context, R.string.value_occlusion),
-                FaceEnvironment.VALUE_OCCLUSION));
-        // 是否进行质量检测
-        tracker.set_isCheckQuality(FormatUtils.getBoolean(context, R.bool.value_is_check_quality));
-        // 是否进行活体校验
-        tracker.set_isVerifyLive(FormatUtils.getBoolean(context, R.bool.value_is_verify_live));
+        FaceSDKManager.getInstance().initFaceTrackerConfig(context);
     }
 
-    public void updateFaceTracker(Context context) {
-        FaceSDKManager.getInstance().getFaceTracker(context).set_min_face_size(80);
-        FaceSDKManager.getInstance().getFaceTracker(context).set_isCheckQuality(false);
-        // 该角度为商学，左右，偏头的角度的阀值，大于将无法检测出人脸，为了在1：n的时候分数高，注册尽量使用比较正的人脸，可自行条件角度
-        FaceSDKManager.getInstance().getFaceTracker(context).set_eulur_angle_thr(45, 45, 45);
-        FaceSDKManager.getInstance().getFaceTracker(context).set_isVerifyLive(true);
-        FaceSDKManager.getInstance().getFaceTracker(context).set_notFace_thr(0.2f);
-        FaceSDKManager.getInstance().getFaceTracker(context).set_occlu_thr(0.1f);
-    }
+//    public void updateFaceTracker(Context context) {
+//        FaceSDKManager.getInstance().getFaceTracker(context).set_min_face_size(80);
+//        FaceSDKManager.getInstance().getFaceTracker(context).set_isCheckQuality(false);
+//        // 该角度为商学，左右，偏头的角度的阀值，大于将无法检测出人脸，为了在1：n的时候分数高，注册尽量使用比较正的人脸，可自行条件角度
+//        FaceSDKManager.getInstance().getFaceTracker(context).set_eulur_angle_thr(45, 45, 45);
+//        FaceSDKManager.getInstance().getFaceTracker(context).set_isVerifyLive(true);
+//        FaceSDKManager.getInstance().getFaceTracker(context).set_notFace_thr(0.2f);
+//        FaceSDKManager.getInstance().getFaceTracker(context).set_occlu_thr(0.1f);
+//    }
 }

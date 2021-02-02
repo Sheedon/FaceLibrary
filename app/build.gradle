@@ -12,6 +12,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        lintOptions { checkReleaseBuilds false }
     }
 
     buildTypes {
@@ -24,6 +26,12 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
     }
 }
 
@@ -39,4 +47,8 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
 
     implementation project(':faceonlinelibrary')
+//    implementation(name: 'faceonlinelibrary-release', ext: 'aar')
+//    implementation(name: 'facesdk-release', ext: 'aar')
+//
+//    implementation 'com.github.jiangdongguo:AndroidUSBCamera:2.3.4'
 }

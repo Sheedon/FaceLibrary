@@ -1,5 +1,5 @@
 include ':faceonlinelibrary'
-include ':facesdk'
+//include ':facesdk'
 //include ':orbbec'
 include ':app'
 rootProject.name = "FaceLibrary"
