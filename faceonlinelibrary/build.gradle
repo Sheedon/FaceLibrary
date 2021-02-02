@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 4
-        versionName "1.2"
+        versionCode 5
+        versionName "1.2.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -42,5 +42,5 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
 
 //    api project(":facesdk")
-    api(name: 'facesdk-release', ext: 'aar')
+    implementation(name: 'facesdk-release', ext: 'aar')
 }
