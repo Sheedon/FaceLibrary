@@ -1,0 +1,22 @@
+<resources>
+    <string name="baidu_api_key"></string>
+    <string name="baidu_secret_key"></string>
+    <string name="baidu_group_id"></string>
+    <string name="baidu_license_id">face-demo-login-face-android</string>
+    <string name="baidu_license_file_name">idl-license.face-android</string>
+
+    <string name="value_brightness">40</string>
+    <string name="value_blurness">0.5</string>
+    <string name="value_occlusion">0.5</string>
+    <integer name="value_head_pitch">45</integer>
+    <integer name="value_head_yaw">45</integer>
+    <integer name="value_head_roll">45</integer>
+    <integer name="value_crop_face_size">100</integer>
+    <integer name="value_min_face_size">80</integer>
+    <string name="value_not_face_threshold">0.3</string>
+    <bool name="value_is_check_quality">false</bool>
+    <bool name="value_is_verify_live">false</bool>
+    <integer name="value_decode_thread_num">2</integer>
+    <integer name="value_liveness_default_random_count">3</integer>
+    <integer name="value_max_crop_image_num">1</integer>
+</resources>
